@@ -20,9 +20,12 @@ const style = {
 
 class ToDoItems extends Component {
 
-    handleEdit = (e) => {   
+    handleEdit = (e) => {
+        console.log("Working in progress!")   
 
     }
+
+    handleDelete = (task) => this.props.deleteTask(task.id);
 
     render() {
         let tasks = this.props.tasks;
@@ -36,10 +39,10 @@ class ToDoItems extends Component {
                                 <ListItem>
                                     <ToDoItem task={task} editing={true} />
                                     <ListItemSecondaryAction>
-                                        <IconButton onClick={() => this.props.deleteTask(task.id)} >
+                                        <IconButton onClick={() => this.handleDelete(task)} >
                                             <Delete />
                                         </IconButton>
-                                        <IconButton onClick={(e) => this.handleEdit(task)}>
+                                        <IconButton onClick={() => this.handleEdit(task)}>
                                             <Edit />
                                         </IconButton>
                                     </ListItemSecondaryAction>

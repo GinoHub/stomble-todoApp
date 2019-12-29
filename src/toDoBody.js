@@ -17,15 +17,13 @@ const style = {
 
 class ToDoBody extends Component {
 
-
-
     newTask = {
         value: "",
         id: 0
     };
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = { task: this.newTask }
     }
 

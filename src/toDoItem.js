@@ -14,6 +14,10 @@ class ToDoItem extends Component {
         e.preventDefault();
     }
 
+    /**
+     * issue with sending form information to parent to display and change tasks state.
+     */
+
     render() {
         if (this.state.editing) {
             return (

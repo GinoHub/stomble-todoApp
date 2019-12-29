@@ -38,16 +38,19 @@ class ToDo extends Component {
     });
 
     deleteTask = (taskID) => this.setState((prevState) => {
-        console.log(prevState, "PrevStatte")
         return {
             tasks: [...prevState.tasks].filter((task) => task.id !== taskID)
         }
     });
 
     editTask = (task) => {
-        console.log(task)
+        // console.log(task)
     }
 
+    /**
+     * filters the results of the search bar to be displayed on the list,
+     * if the search bar is empty, will display return all tasks.
+     */
     filteredTasksFunc = (e) => {
         let tasks;
         if (e.target.value !== "") {
@@ -58,16 +61,14 @@ class ToDo extends Component {
             tasks = [];
         }
 
-        console.log(tasks)
-
         this.setState(() => {
             return {
                 filteredTasks: tasks
             }
-
         });
-
     }
+
+    //TODO: find a better way to handle props.
 
     render() {
         return (
