@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {
     AppBar,
     Toolbar,
@@ -28,24 +28,21 @@ const style = {
 
     }
 }
-class ToDoHeader extends Component {
+const ToDoHeader = (props) => {
 
-
-    render() {
-        return (
-            <AppBar style={style.AppBar}>
-                <Toolbar>
-                    <Typography variant="h5" style={style.Typography}>
-                        To Do
+    return (
+        <AppBar style={style.AppBar}>
+            <Toolbar>
+                <Typography variant="h5" style={style.Typography}>
+                    To Do
                 </Typography>
-                    <TextField variant="outlined"
-                        style={style.TextField}
-                        label="Search..."
-                        onChange={(e) => this.props.handleSearch(e)} />
-                </Toolbar>
-            </AppBar>
-                )
-            }
-        }
+                <TextField variant="outlined"
+                    style={style.TextField}
+                    label="Search..."
+                    onChange={(e) => props.handleSearch(e)} />
+            </Toolbar>
+        </AppBar>
+    )
+}
 
 export default ToDoHeader;

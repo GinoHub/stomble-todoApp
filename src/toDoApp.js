@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ToDoItems from "./ToDoItems";
+import ToDoList from "./ToDoList";
 import ToDoHeader from "./ToDoHeader";
 // import ToDoSearchBar from "./toDoSearchBar";
 import ToDoBody from "./toDoBody";
@@ -25,41 +25,47 @@ class ToDo extends Component {
         this.state = {
             tasks: [{
                 value: "Hello",
-                id: Date.now()
+                id: Date.now(),
+                edit: false
             }],
             filteredTasks: []
         };
     }
 
-    addTask = (task) => this.setState((prevState) => {
+    addTask = (newTask) => this.setState((prevState) => {
         return {
-            tasks: [...prevState.tasks, task]
+            tasks: [...prevState.tasks, newTask]
         }
     });
 
-    deleteTask = (taskID) => this.setState((prevState) => {
+    deleteTask = (taskDelete) => this.setState((prevState) => {
         return {
-            tasks: [...prevState.tasks].filter((task) => task.id !== taskID)
+            tasks: [...prevState.tasks].filter((task) => task.id !== taskDelete.id)
         }
     });
 
-    editTask = (task) => {
-        // console.log(task)
+    editTask = (newTask) => {
+
+        this.setState((prevState) => {
+            const index = prevState.tasks.findIndex((task) => {
+                return task.id === newTask.id
+            });
+
+            return {
+                tasks: [...prevState.tasks.slice(0, index), newTask, ...prevState.tasks.slice(index + 1)]
+            }
+
+        })
     }
 
     /**
      * filters the results of the search bar to be displayed on the list,
      * if the search bar is empty, will display return all tasks.
      */
-    filteredTasksFunc = (e) => {
-        let tasks;
-        if (e.target.value !== "") {
-            tasks = this.state.tasks.filter((task) =>
-                task.value.toLowerCase().includes(e.target.value.toLowerCase())
-            );
-        } else {
-            tasks = [];
-        }
+    searchTasks = (e) => {
+        let tasks = e.target.value !== "" ? this.state.tasks.filter((task) => {
+            return task.value.toLowerCase().includes(e.target.value.toLowerCase());
+        }) : []
 
         this.setState(() => {
             return {
@@ -68,16 +74,14 @@ class ToDo extends Component {
         });
     }
 
-    //TODO: find a better way to handle props.
-
     render() {
         return (
             <Container style={style.Container}>
-                <ToDoHeader handleSearch={this.filteredTasksFunc} />
+                <ToDoHeader handleSearch={this.searchTasks} />
                 <Paper style={style.Paper}>
                     <ToDoBody addTask={this.addTask} />
                     <Divider style={style.Divider} />
-                    <ToDoItems tasks={this.state.filteredTasks.length === 0 ? this.state.tasks : this.state.filteredTasks}
+                    <ToDoList tasks={this.state.filteredTasks.length === 0 ? this.state.tasks : this.state.filteredTasks}
                         deleteTask={this.deleteTask}
                         editTask={this.editTask}
                     />

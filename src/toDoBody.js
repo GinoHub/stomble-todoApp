@@ -19,7 +19,8 @@ class ToDoBody extends Component {
 
     newTask = {
         value: "",
-        id: 0
+        id: 0,
+        edit: false
     };
 
     constructor(props) {
@@ -40,7 +41,8 @@ class ToDoBody extends Component {
         this.setState({
             task: {
                 value: e.target.value,
-                id: Date.now()
+                id: Date.now(),
+                edit: false
             }
         });
     }
@@ -55,7 +57,7 @@ class ToDoBody extends Component {
                         onChange={this.inputUpdate}
                     />
                     <IconButton type="submit">
-                        <AddCircle></AddCircle>
+                        <AddCircle />
                     </IconButton>
                 </form>
             </Container>

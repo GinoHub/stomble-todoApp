@@ -1,34 +1,20 @@
-import React, { Component } from "react";
+import React from "react";
 import { TextField, ListItemText } from "@material-ui/core";
 
-class ToDoItem extends Component {
-    constructor() {
-        super();
+const ToDoItem = (props) => {
 
-        this.state = {
-            editing: false
-        }
+    let handleChange = (e) => {
+        console.log(e.target.value)
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
+    if (props.task.edit) {
+        return (
+            <TextField variant="outlined"
+                label={props.task.value}
+                onChange={handleChange} />
+        );
     }
-
-    /**
-     * issue with sending form information to parent to display and change tasks state.
-     */
-
-    render() {
-        if (this.state.editing) {
-            return (
-                <form onSubmit={this.handleSubmit}>
-                    <TextField variant="outlined" label={this.props.task.value} />
-                </form>
-            );
-        }
-        return (<ListItemText primary={this.props.task.value} />);
-    }
-
+    return (<ListItemText primary={props.task.value} />);
 }
 
 export default ToDoItem;
