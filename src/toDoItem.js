@@ -1,20 +1,28 @@
-import React from "react";
+import React, {useState} from "react";
 import { TextField, ListItemText } from "@material-ui/core";
 
 const ToDoItem = (props) => {
+    const [editTask, setEditTask] = useState(props.task);
 
     let handleChange = (e) => {
-        console.log(e.target.value)
+        setEditTask(e.target.value)
+        // console.log(editTask, e.target.value)
     }
 
-    if (props.task.edit) {
-        return (
+    let handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(editTask)
+        props.handleEdit(editTask, e);
+    }
+
+    return props.task.edit ? (
+        <form id="editForm" onSubmit={handleSubmit}>
             <TextField variant="outlined"
                 label={props.task.value}
                 onChange={handleChange} />
-        );
-    }
-    return (<ListItemText primary={props.task.value} />);
+        </form>
+    )
+        : (<ListItemText primary={props.task.value} />)
 }
 
 export default ToDoItem;

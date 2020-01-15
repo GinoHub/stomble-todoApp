@@ -18,12 +18,20 @@ const style = {
 const ToDoList = (props) => {
 
     let handleEdit = (task, e) => {
-        //find event value and save to task
-        props.editTask({ ...task, edit: !task.edit });
+        if (task.edit) {
+            console.log("good")
+        }
     }
 
     let handleDelete = (task) => {
         props.deleteTask(task)
+    }
+
+    let handleEditClick = (task) => {
+        if (task.edit) {
+            //submit form
+        }
+        props.editTask({ ...task, edit: !task.edit });
     }
 
     return (
@@ -32,12 +40,13 @@ const ToDoList = (props) => {
                 return (
                     <List key={task.id}>
                         <ListItem>
-                            <ToDoItem task={task} />
+                            <ToDoItem task={task} handleEdit={handleEdit} />
                             <ListItemSecondaryAction>
                                 <IconButton onClick={() => handleDelete(task)} >
                                     <Delete />
                                 </IconButton>
-                                <IconButton onClick={(e) => handleEdit(task, e)}>
+                                <IconButton type="submit" form="editForm"
+                                 onClick={() => handleEditClick(task)}>
                                     <Edit />
                                 </IconButton>
                             </ListItemSecondaryAction>

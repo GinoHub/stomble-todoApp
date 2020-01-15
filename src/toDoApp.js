@@ -45,7 +45,7 @@ class ToDo extends Component {
     });
 
     editTask = (newTask) => {
-
+        
         this.setState((prevState) => {
             const index = prevState.tasks.findIndex((task) => {
                 return task.id === newTask.id
